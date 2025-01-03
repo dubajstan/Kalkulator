@@ -81,7 +81,7 @@ public class Parser {
         if(currentToken().getType().equals(Token.TokenType.POWER)) {
             Token.TokenType operator = currentToken().getType();
             advance();
-            Node right = factorial();
+            Node right = power();
             return new Power(left, right);
         }
         return left;

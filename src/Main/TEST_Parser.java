@@ -5,7 +5,7 @@ import Utils.Node;
 
 public class TEST_Parser {
     public static void main(String[] args) {
-        String s = "3!!";
+        String s = "3!!  =720 ";
 
         try {
             Parser parser = new Parser(s);

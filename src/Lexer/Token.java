@@ -12,6 +12,7 @@ public class Token {
         FACTORIAL,
         LPAREN,
         RPAREN,
+        EQUALS,
         END
     }
 

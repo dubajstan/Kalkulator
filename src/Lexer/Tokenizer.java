@@ -15,6 +15,7 @@ public class Tokenizer {
         operationChars.put('!', Token.TokenType.FACTORIAL);
         operationChars.put('(', Token.TokenType.LPAREN);
         operationChars.put(')', Token.TokenType.RPAREN);
+        operationChars.put('=', Token.TokenType.EQUALS);
     }
 
     public static ArrayList<Token> generateTokens(String input) throws Exception {

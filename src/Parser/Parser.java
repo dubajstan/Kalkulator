@@ -28,9 +28,21 @@ public class Parser {
     }
 
     public Node parse() throws Exception {
-        Node root = expression();
+        Node root = equality();
         if(root == null || !currentToken().getType().equals(Token.TokenType.END)) throw new Exception("Bledna skladnia");
         return root;
+    }
+
+    private Node equality() {
+        Node left = expression();
+
+        if(currentToken().getType().equals(Token.TokenType.EQUALS)) {
+            Token operator = currentToken();
+            advance();
+            Node right = expression();
+            return new Equality(left, right);
+        }
+        return left;
     }
 
     private Node expression() {

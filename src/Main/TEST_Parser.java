@@ -1,21 +1,25 @@
 package Main;
 
+import Lexer.Token;
+import Lexer.Tokenizer;
 import Parser.Parser;
 import Utils.Node;
+import java.util.List;
 
 public class TEST_Parser {
     public static void main(String[] args) {
-        String s = "3!!  =720 ";
+        String s = "f(a,b) = a* b";
 
-        try {
-            Parser parser = new Parser(s);
-            Node root = parser.parse();
-            System.out.println(root);
-            System.out.println(root.evaluate());
+        try{
+            Tokenizer tokenizer = new Tokenizer(s);
+            List<Token> tokens = tokenizer.tokenize();
 
-        } catch(IllegalArgumentException e){
-            e.printStackTrace();
-        } catch(Exception e){
+            Parser parser = new Parser(tokens);
+
+            Node node = parser.parse();
+            System.out.println(node);
+        }
+        catch(Exception e){
             e.printStackTrace();
         }
 

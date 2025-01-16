@@ -1,71 +1,88 @@
 package Lexer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import Exception.LexerException;
 
 public class Tokenizer {
-    private static final HashMap<Character, Token.TokenType> operationChars = new HashMap<>();
+    private static final List<Pair<String, Token.TokenType>> TOKEN_REGEX = Arrays.asList(
+            new Pair<>("[\\s]+", null),
+            new Pair<>("[0-9]+(\\.[0-9]+)?", Token.TokenType.NUMBER),
+            new Pair<>("[a-zA-Z_][a-zA-Z0-9]*", Token.TokenType.IDENTIFIER),
+            new Pair<>("\\+", Token.TokenType.PLUS),
+            new Pair<>("-", Token.TokenType.MINUS),
+            new Pair<>("\\*", Token.TokenType.MULTIPLY),
+            new Pair<>("/", Token.TokenType.DIVIDE),
+            new Pair<>("\\(", Token.TokenType.LPAREN),
+            new Pair<>("\\)", Token.TokenType.RPAREN),
+            new Pair<>(",", Token.TokenType.COMMA),
+            new Pair<>("=", Token.TokenType.EQUALS),
+            new Pair<>("!", Token.TokenType.FACTORIAL),
+            new Pair<>("^", Token.TokenType.POWER)
+    );
 
-    static {
-        operationChars.put('+', Token.TokenType.PLUS);
-        operationChars.put('-', Token.TokenType.MINUS);
-        operationChars.put('*', Token.TokenType.MULTIPLY);
-        operationChars.put('/', Token.TokenType.DIVIDE);
-        operationChars.put('^', Token.TokenType.POWER);
-        operationChars.put('!', Token.TokenType.FACTORIAL);
-        operationChars.put('(', Token.TokenType.LPAREN);
-        operationChars.put(')', Token.TokenType.RPAREN);
-        operationChars.put('=', Token.TokenType.EQUALS);
+    private final String inputText;
+    private int position;
+
+    public Tokenizer(String inputText) {
+        this.inputText = inputText;
+        this.position = 0;
     }
 
-    public static ArrayList<Token> generateTokens(String input) throws Exception {
-        ArrayList<Token> tokenList = new ArrayList<>();
-        boolean containsDecimalPoint = false;
+    public List<Token> tokenize() {
+        List<Token> tokens = new ArrayList<>();
 
-        for(int i = 0; i < input.length(); i++) {
-            char c = input.charAt(i);
-            if(Character.isDigit(c) || c == '.') {
-                int j;
+        while (position < inputText.length()) {
+            boolean matched = false;
 
-                for(j=i; j<input.length(); j++) {
-                    char curr = input.charAt(j);
+            for(Pair<String, Token.TokenType> token : TOKEN_REGEX) {
+                String pattern = token.getKey();
+                Token.TokenType type = token.getValue();
 
-                    if(curr == '.') {
-                        if(containsDecimalPoint) throw new Exception("Too much decimal points");
-                        else containsDecimalPoint = true;
+                Pattern compiledPattern = Pattern.compile(pattern);
+                Matcher matcher = compiledPattern.matcher(inputText.substring(position));
+
+                if(matcher.lookingAt()) {
+                    matched = true;
+
+                    if(type != null) {
+                        String value = matcher.group();
+                        tokens.add(new Token(type, value));
                     }
 
-                    else if(!Character.isDigit(curr)) break;
+                    position += matcher.end();
+                    break;
                 }
+            }
 
-                String substring = "0" + input.substring(i,j);
-                Token token = new Token(Token.TokenType.VALUE, Double.parseDouble(substring));
-                tokenList.add(token);
-                containsDecimalPoint = false;
-                i = j-1;
+            if(!matched) {
+                throw new LexerException("Nieznany symbol: " + inputText.charAt(position) + position);
             }
-            else if(operationChars.containsKey(c)) {
-                Token token = new Token(operationChars.get(c));
-                tokenList.add(token);
-            }
-            else if(Character.isLetter(c)) {
-                int j;
-
-                for(j=i; j<input.length(); j++) {
-                    char curr = input.charAt(j);
-                    if(!Character.isLetter(curr)) break;
-                }
-                //TODO: O TUTAJ FUNKCJE MOGA BYC
-                String substring = input.substring(i,j);
-                Token token = new Token(Token.TokenType.VARIABLE, substring);
-                tokenList.add(token);
-                i = j-1;
-            }
-            else if(!Character.isWhitespace(c)) throw new Exception("Nieznany znak");
-            //TODO: DODAC ZNAK = ZEBY ROZPOZNAWALO DEFINIOWANIE FUNKCJI
-            //TODO: DODAC ROZPOZNAWANIE FUNKCJI tryg, hiperbolicznych, itd. tez bedzie trzeba dodac w Parser
         }
-        tokenList.add(new Token(Token.TokenType.END));
-        return tokenList;
+
+        tokens.add(new Token(Token.TokenType.EOF, null));
+        return tokens;
+    }
+
+
+    private static class Pair<K, V> {
+        private final K key;
+        private final V value;
+
+        public Pair(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public K getKey() {
+            return key;
+        }
+        public V getValue() {
+            return value;
+        }
     }
 }

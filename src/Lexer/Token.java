@@ -2,8 +2,8 @@ package Lexer;
 
 public class Token {
     public enum TokenType {
-        VALUE,
-        VARIABLE,
+        IDENTIFIER,
+        NUMBER,
         PLUS,
         MINUS,
         MULTIPLY,
@@ -12,50 +12,28 @@ public class Token {
         FACTORIAL,
         LPAREN,
         RPAREN,
+        COMMA,
         EQUALS,
-        END
+        EOF
     }
 
-    public final TokenType type;
-    public final Double val;
-    public final String name;
+    private final TokenType type;
+    private final String value;
 
-    public Token(TokenType type, Double val) {
+    public Token(TokenType type, String value) {
         this.type = type;
-        this.val = val;
-        name = null;
-    }
-
-    public Token(TokenType type) {
-        this.type = type;
-        this.val = null;
-        name = null;
-    }
-
-    public Token(TokenType type, String name) {
-        this.type = type;
-        this.val = null;
-        this.name = name;
+        this.value = value;
     }
 
     public TokenType getType() {
         return type;
     }
-    public Double getVal() {
-        return val;
-    }
-    public String getName() {
-        return name;
+    public String getValue() {
+        return value;
     }
 
     @Override
     public String toString() {
-        if (val == null && name == null) {
-            return "Token{type: %s}".formatted(type);
-        }
-        if(val == null) {
-            return "Token{type: %s, name: %s}".formatted(type, name);
-        }
-        return "Token{type: %s, value: %s".formatted(type, val);
+        return "Token(%s, %s)".formatted(type, value);
     }
 }

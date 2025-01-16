@@ -13,7 +13,10 @@ public class Interpreter_TEST {
         String[] linie = {
                 "x = 5",
                 "f(x) = 2*x",
-                "f(3)"
+                "f(x)",
+                "f(x)",
+                "x",
+                "f("
         };
 
         try{

@@ -50,12 +50,17 @@ public class Parser {
 
             if(match(Token.TokenType.LPAREN)) {
                 List<String> parameters = parseParameterList();
-                expect(Token.TokenType.RPAREN);
-                if(match(Token.TokenType.EQUALS)){
-                    Node body = parseExpression();
-                    expect(Token.TokenType.EOF);
-                    return new FunctionDefinitionNode(name, parameters, body);
+                try{
+                    expect(Token.TokenType.RPAREN);
+                    if(match(Token.TokenType.EQUALS)){
+                        Node body = parseExpression();
+                        expect(Token.TokenType.EOF);
+                        return new FunctionDefinitionNode(name, parameters, body);
+                    }
+                }catch(CalculatorException _){
+
                 }
+
                 position = 0;
                 Node node = parseExpression();
                 expect(Token.TokenType.EOF);

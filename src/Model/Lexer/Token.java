@@ -1,4 +1,4 @@
-package Lexer;
+package Model.Lexer;
 
 public class Token {
     public enum TokenType {
@@ -14,6 +14,8 @@ public class Token {
         RPAREN,
         COMMA,
         EQUALS,
+        LBRACKET,
+        RBRACKET,
         EOF
     }
 

@@ -1,10 +1,10 @@
-package Parser;
+package Model.Parser;
 
 import java.util.ArrayList;
 import java.util.List;
-import Lexer.*;
-import Exception.CalculatorException;
-import Utils.*;
+import Model.Lexer.*;
+import Model.Exception.CalculatorException;
+import Model.Utils.*;
 
 public class Parser {
     private final List<Token> tokens;

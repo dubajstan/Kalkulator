@@ -1,4 +1,4 @@
-package Utils;
+package Model.Utils;
 
 public class VariableAssigmentNode implements Node{
     private final String variable;

@@ -1,4 +1,4 @@
-package Utils;
+package Model.Utils;
 
 public class VariableNode implements Node {
     private final String name;

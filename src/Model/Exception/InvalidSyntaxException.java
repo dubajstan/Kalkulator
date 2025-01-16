@@ -1,4 +1,4 @@
-package Exception;
+package Model.Exception;
 
 public class InvalidSyntaxException extends RuntimeException {
     private int position;

@@ -1,14 +1,13 @@
-package Interpreter;
+package Model.Interpreter;
 
-import Utils.Node;
+import Model.Utils.Node;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import Utils.*;
-import Exception.CalculatorException;
+import Model.Utils.*;
+import Model.Exception.CalculatorException;
 
 public class Interpreter {
     private static final HashMap<String, Double> variables = new HashMap<>();

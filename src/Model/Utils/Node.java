@@ -1,4 +1,4 @@
-package Utils;
+package Model.Utils;
 
 public interface Node {
     @Override

@@ -1,4 +1,4 @@
-package Utils;
+package Model.Utils;
 
 public class NumberNode implements Node {
     private final double value;

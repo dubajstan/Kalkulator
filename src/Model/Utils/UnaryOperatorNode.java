@@ -1,4 +1,4 @@
-package Utils;
+package Model.Utils;
 
 public class UnaryOperatorNode implements Node{
     private final Node node;

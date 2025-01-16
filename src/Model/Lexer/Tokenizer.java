@@ -1,12 +1,11 @@
-package Lexer;
+package Model.Lexer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import Exception.LexerException;
+import Model.Exception.LexerException;
 
 public class Tokenizer {
     private static final List<Pair<String, Token.TokenType>> TOKEN_REGEX = Arrays.asList(
@@ -22,7 +21,9 @@ public class Tokenizer {
             new Pair<>(",", Token.TokenType.COMMA),
             new Pair<>("=", Token.TokenType.EQUALS),
             new Pair<>("!", Token.TokenType.FACTORIAL),
-            new Pair<>("^", Token.TokenType.POWER)
+            new Pair<>("^", Token.TokenType.POWER),
+            new Pair<>("{", Token.TokenType.LBRACKET),
+            new Pair<>("}", Token.TokenType.RBRACKET)
     );
 
     private final String inputText;

@@ -1,9 +1,9 @@
-package Main;
+package Model.Main;
 
-import Lexer.Token;
-import Lexer.Tokenizer;
-import Parser.Parser;
-import Utils.Node;
+import Model.Lexer.Token;
+import Model.Lexer.Tokenizer;
+import Model.Parser.Parser;
+import Model.Utils.Node;
 import java.util.List;
 
 public class TEST_Parser {

@@ -1,4 +1,4 @@
-package Utils;
+package Model.Utils;
 
 public class BinaryOperatorNode implements Node {
     private final Node left;

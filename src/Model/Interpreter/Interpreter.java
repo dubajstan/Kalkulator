@@ -5,18 +5,37 @@ import Model.Utils.Node;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Function;
 
 import Model.Utils.*;
 import Model.Exception.CalculatorException;
 
 public class Interpreter {
-    private static final HashMap<String, Double> variables = new HashMap<>();
-    private static final HashMap<String, FunctionDefinitionNode> functions = new HashMap<>();
+    private final HashMap<String, Double> variables;
+    private final HashMap<String, FunctionDefinitionNode> functions;
 
-    static {
+    public Interpreter() {
+        this.variables = new HashMap<>();
+        this.functions = new HashMap<>();
         variables.put("pi", Math.PI);
         variables.put("e", Math.E);
-        //FunctionDefinitionNode sin = new FunctionDefinitionNode("sin", List.of("x"), new )
+        functions.put("sin", new FunctionDefinitionNode("sin", List.of("x"), new PredefinedFunctionNode("sin", List.of("x"), Math::sin)));
+        functions.put("cos", new FunctionDefinitionNode("cos", List.of("x"), new PredefinedFunctionNode("cos", List.of("x"), Math::cos)));
+        functions.put("tg", new FunctionDefinitionNode("tg", List.of("x"), new PredefinedFunctionNode("tg", List.of("x"), Math::tan)));
+        functions.put("sqrt", new FunctionDefinitionNode("sqrt", List.of("x"), new PredefinedFunctionNode("sgrt", List.of("x"), Math::sqrt)));
+        functions.put("arcsin", new FunctionDefinitionNode("arcsin", List.of("x"), new PredefinedFunctionNode("arcsin", List.of("x"), Math::asin)));
+        functions.put("arccos", new FunctionDefinitionNode("arccos", List.of("x"), new PredefinedFunctionNode("arccos", List.of("x"), Math::acos)));
+        functions.put("arctg", new FunctionDefinitionNode("arctg", List.of("x"), new PredefinedFunctionNode("arctg", List.of("x"), Math::atan)));
+        functions.put("ln", new FunctionDefinitionNode("ln", List.of("x"), new PredefinedFunctionNode("ln", List.of("x"), Math::log)));
+        functions.put("log", new FunctionDefinitionNode("log", List.of("x"), new PredefinedFunctionNode("log", List.of("x"), Math::log10)));
+        functions.put("_3root", new FunctionDefinitionNode("_3root", List.of("x"), new PredefinedFunctionNode("_3root", List.of("x"), Math::cbrt)));
+        functions.put("ceil", new FunctionDefinitionNode("ceil", List.of("x"), new PredefinedFunctionNode("ceil", List.of("x"), Math::ceil)));
+        functions.put("floor", new FunctionDefinitionNode("floor", List.of("x"), new PredefinedFunctionNode("floor", List.of("x"), Math::floor)));
+        functions.put("abs", new FunctionDefinitionNode("abs", List.of("x"), new PredefinedFunctionNode("abs", List.of("x"), Math::abs)));
+        functions.put("sinh", new FunctionDefinitionNode("sinh", List.of("x"), new PredefinedFunctionNode("sinh", List.of("x"), Math::sinh)));
+        functions.put("cosh", new FunctionDefinitionNode("cosh", List.of("x"), new PredefinedFunctionNode("cosh", List.of("x"), Math::cosh)));
+        functions.put("tgh", new FunctionDefinitionNode("tgh", List.of("x"), new PredefinedFunctionNode("tgh", List.of("x"), Math::tanh)));
+
     }
 
     public double evaluate(Node node) {
@@ -94,7 +113,12 @@ public class Interpreter {
             HashMap<String, Double> variablesCopy = new HashMap<>(variables);
 
             variables.putAll(localVariables);
-            double result = evaluate(funcDef.getBody());
+            double result;
+            if(funcDef.getBody() instanceof PredefinedFunctionNode) {
+                result = ((PredefinedFunctionNode) funcDef.getBody()).getFunction().apply(evaluate(funcCall.getArguments().get(0))); // zrobione dla jednego argumentu
+            }else {
+                result = evaluate(funcDef.getBody());
+            }
 
             variables.clear();
             variables.putAll(variablesCopy);
@@ -106,7 +130,12 @@ public class Interpreter {
         }
     }
 
-    public void execute(Node node) {
+    public void reset(){
+        variables.clear();
+        functions.clear();
+    }
+
+    public Double execute(Node node) {
         List<Class> classes = new ArrayList<>();
         classes.add(BinaryOperatorNode.class);
         classes.add(UnaryOperatorNode.class);
@@ -116,7 +145,7 @@ public class Interpreter {
         classes.add(VariableNode.class);
         classes.add(NumberNode.class);
         if(classes.contains(node.getClass())) {
-            System.out.println(evaluate(node));
+            return evaluate(node);
         }
         else{
             throw new CalculatorException("Nieobslugiwany typ Node");
@@ -125,6 +154,9 @@ public class Interpreter {
 
     public HashMap<String, Double> getVariables() {
         return variables;
+    }
+    public HashMap<String, FunctionDefinitionNode> getFunctions() {
+        return functions;
     }
 
 }

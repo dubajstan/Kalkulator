@@ -10,8 +10,8 @@ public class Parser {
     private final List<Token> tokens;
     private int position;
 
-    public Parser(List<Token> tokens) {
-        this.tokens = tokens;
+    public Parser() {
+        this.tokens = new ArrayList<>();
         position = 0;
     }
 
@@ -37,7 +37,13 @@ public class Parser {
         }
     }
 
-    public Node parse() throws CalculatorException{
+    public Node parse(List<Token> tokens) throws CalculatorException{
+        this.tokens.clear();
+        this.position = 0;
+        this.tokens.addAll(tokens);
+        if(match(Token.TokenType.EOF)) {
+            return new NumberNode(0.0);
+        }
         return parseProgram();
     }
 
@@ -159,6 +165,11 @@ public class Parser {
         }
         else if(token.getType() == Token.TokenType.LPAREN){
             advance();
+            if(getNext().getType() == Token.TokenType.RPAREN) {
+                Node node = new NumberNode(0.0);
+                advance();
+                return node;
+            }
             Node node = parseExpression();
             expect(Token.TokenType.RPAREN);
             return node;

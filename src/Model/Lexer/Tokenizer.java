@@ -29,13 +29,14 @@ public class Tokenizer {
     private final String inputText;
     private int position;
 
-    public Tokenizer(String inputText) {
-        this.inputText = inputText;
+    public Tokenizer() {
+        this.inputText = "";
         this.position = 0;
     }
 
-    public List<Token> tokenize() {
-        List<Token> tokens = new ArrayList<>();
+    public ArrayList<Token> tokenize(String inputText) {
+        position = 0;
+        ArrayList<Token> tokens = new ArrayList<>();
 
         while (position < inputText.length()) {
             boolean matched = false;

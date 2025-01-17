@@ -19,22 +19,22 @@ public class Interpreter {
         this.functions = new HashMap<>();
         variables.put("pi", Math.PI);
         variables.put("e", Math.E);
-        functions.put("sin", new FunctionDefinitionNode("sin", List.of("x"), new PredefinedFunctionNode("sin", List.of("x"), Math::sin)));
-        functions.put("cos", new FunctionDefinitionNode("cos", List.of("x"), new PredefinedFunctionNode("cos", List.of("x"), Math::cos)));
-        functions.put("tg", new FunctionDefinitionNode("tg", List.of("x"), new PredefinedFunctionNode("tg", List.of("x"), Math::tan)));
-        functions.put("sqrt", new FunctionDefinitionNode("sqrt", List.of("x"), new PredefinedFunctionNode("sgrt", List.of("x"), Math::sqrt)));
-        functions.put("arcsin", new FunctionDefinitionNode("arcsin", List.of("x"), new PredefinedFunctionNode("arcsin", List.of("x"), Math::asin)));
-        functions.put("arccos", new FunctionDefinitionNode("arccos", List.of("x"), new PredefinedFunctionNode("arccos", List.of("x"), Math::acos)));
-        functions.put("arctg", new FunctionDefinitionNode("arctg", List.of("x"), new PredefinedFunctionNode("arctg", List.of("x"), Math::atan)));
-        functions.put("ln", new FunctionDefinitionNode("ln", List.of("x"), new PredefinedFunctionNode("ln", List.of("x"), Math::log)));
-        functions.put("log", new FunctionDefinitionNode("log", List.of("x"), new PredefinedFunctionNode("log", List.of("x"), Math::log10)));
-        functions.put("_3root", new FunctionDefinitionNode("_3root", List.of("x"), new PredefinedFunctionNode("_3root", List.of("x"), Math::cbrt)));
-        functions.put("ceil", new FunctionDefinitionNode("ceil", List.of("x"), new PredefinedFunctionNode("ceil", List.of("x"), Math::ceil)));
-        functions.put("floor", new FunctionDefinitionNode("floor", List.of("x"), new PredefinedFunctionNode("floor", List.of("x"), Math::floor)));
-        functions.put("abs", new FunctionDefinitionNode("abs", List.of("x"), new PredefinedFunctionNode("abs", List.of("x"), Math::abs)));
-        functions.put("sinh", new FunctionDefinitionNode("sinh", List.of("x"), new PredefinedFunctionNode("sinh", List.of("x"), Math::sinh)));
-        functions.put("cosh", new FunctionDefinitionNode("cosh", List.of("x"), new PredefinedFunctionNode("cosh", List.of("x"), Math::cosh)));
-        functions.put("tgh", new FunctionDefinitionNode("tgh", List.of("x"), new PredefinedFunctionNode("tgh", List.of("x"), Math::tanh)));
+        functions.put("sin", new FunctionDefinitionNode("sin", List.of("$$$"), new PredefinedFunctionNode("sin", List.of("$$$"), Math::sin)));
+        functions.put("cos", new FunctionDefinitionNode("cos", List.of("$$$"), new PredefinedFunctionNode("cos", List.of("$$$"), Math::cos)));
+        functions.put("tg", new FunctionDefinitionNode("tg", List.of("$$$"), new PredefinedFunctionNode("tg", List.of("$$$"), Math::tan)));
+        functions.put("sqrt", new FunctionDefinitionNode("sqrt", List.of("$$$"), new PredefinedFunctionNode("sgrt", List.of("$$$"), Math::sqrt)));
+        functions.put("arcsin", new FunctionDefinitionNode("arcsin", List.of("$$$"), new PredefinedFunctionNode("arcsin", List.of("$$$"), Math::asin)));
+        functions.put("arccos", new FunctionDefinitionNode("arccos", List.of("$$$"), new PredefinedFunctionNode("arccos", List.of("$$$"), Math::acos)));
+        functions.put("arctg", new FunctionDefinitionNode("arctg", List.of("$$$"), new PredefinedFunctionNode("arctg", List.of("$$$"), Math::atan)));
+        functions.put("ln", new FunctionDefinitionNode("ln", List.of("$$$"), new PredefinedFunctionNode("ln", List.of("$$$"), Math::log)));
+        functions.put("log", new FunctionDefinitionNode("log", List.of("$$$"), new PredefinedFunctionNode("log", List.of("$$$"), Math::log10)));
+        functions.put("_3root", new FunctionDefinitionNode("_3root", List.of("$$$"), new PredefinedFunctionNode("_3root", List.of("$$$"), Math::cbrt)));
+        functions.put("ceil", new FunctionDefinitionNode("ceil", List.of("$$$"), new PredefinedFunctionNode("ceil", List.of("$$$"), Math::ceil)));
+        functions.put("floor", new FunctionDefinitionNode("floor", List.of("$$$"), new PredefinedFunctionNode("floor", List.of("$$$"), Math::floor)));
+        functions.put("abs", new FunctionDefinitionNode("abs", List.of("$$$"), new PredefinedFunctionNode("abs", List.of("$$$"), Math::abs)));
+        functions.put("sinh", new FunctionDefinitionNode("sinh", List.of("$$$"), new PredefinedFunctionNode("sinh", List.of("$$$"), Math::sinh)));
+        functions.put("cosh", new FunctionDefinitionNode("cosh", List.of("$$$"), new PredefinedFunctionNode("cosh", List.of("$$$"), Math::cosh)));
+        functions.put("tgh", new FunctionDefinitionNode("tgh", List.of("$$$"), new PredefinedFunctionNode("tgh", List.of("$$$"), Math::tanh)));
 
     }
 
